@@ -1,0 +1,14 @@
+author:
+  name: 陌竹
+  contact: mozhu233@outlook.com
+task:
+  name: skill_web_ssrf_file_read
+  type: Web
+  description: 尝试去读取一下Web目录下的flag.php吧
+  level: easy
+  flag: ""
+challenge:
+  name: 伪协议读取文件
+  refer: https://www.ctfhub.com
+  tags:
+    - 模板

@@ -17,31 +17,39 @@ const (
 	LevelHard
 )
 
+type Author struct {
+	Name    string `yaml:"name,omitempty"`
+	Contact string `yaml:"contact,omitempty"`
+}
+
+type Task struct {
+	Name          string   `yaml:"name,omitempty"`
+	Type          string   `yaml:"type,omitempty"`
+	Description   string   `yaml:"description,omitempty"`
+	Level         string   `yaml:"level,omitempty"`
+	LevelCode     int32    `yaml:"level_code,omitempty"`
+	Flag          string   `yaml:"flag,omitempty"`
+	AttachmentURL string   `yaml:"attachment_url,omitempty"`
+	Hints         []string `yaml:"hints,omitempty"`
+}
+
+type Challenge struct {
+	Name  string   `yaml:"name,omitempty"`
+	Refer string   `yaml:"refer,omitempty"`
+	Tags  []string `yaml:"tags,omitempty"`
+}
+
+type Skill struct {
+	ID  string `yaml:"id,omitempty"`
+	Pid string `yaml:"pid,omitempty"`
+	Tid string `yaml:"tid,omitempty"`
+}
+
 type Meta struct {
-	Author struct {
-		Name    string `yaml:"name,omitempty"`
-		Contact string `yaml:"contact,omitempty"`
-	} `yaml:"author,omitempty"`
-	Task struct {
-		Name          string   `yaml:"name,omitempty"`
-		Type          string   `yaml:"type,omitempty"`
-		Description   string   `yaml:"description,omitempty"`
-		Level         string   `yaml:"level,omitempty"`
-		LevelCode     int32    `yaml:"level_code,omitempty"`
-		Flag          string   `yaml:"flag,omitempty"`
-		AttachmentURL string   `yaml:"attachment_url,omitempty"`
-		Hints         []string `yaml:"hints,omitempty"`
-	} `yaml:"task,omitempty"`
-	Challenge struct {
-		Name  string   `yaml:"name,omitempty"`
-		Refer string   `yaml:"refer,omitempty"`
-		Tags  []string `yaml:"tags,omitempty"`
-	} `yaml:"challenge,omitempty"`
-	Skill struct {
-		ID  string `yaml:"id,omitempty"`
-		Pid string `yaml:"pid,omitempty"`
-		Tid string `yaml:"tid,omitempty"`
-	} `yaml:"skill,omitempty"`
+	Author    Author    `yaml:"author,omitempty"`
+	Task      Task      `yaml:"task,omitempty"`
+	Challenge Challenge `yaml:"challenge,omitempty"`
+	Skill     Skill     `yaml:"skill,omitempty"`
 }
 
 func (m *Meta) Format() *Meta {
@@ -76,29 +84,12 @@ func (m *Meta) Format() *Meta {
 	return m
 }
 
-func Empty() *Meta {
-	return &Meta{}
-}
-
-func New(name, contact string) *Meta {
-	m := &Meta{}
-	m.Author.Name = name
-	m.Author.Contact = contact
-	return m
-}
-
-func Default() *Meta {
-	m := &Meta{}
-	m.Author.Name = "陌竹"
-	m.Author.Contact = "mozhu233@outlook.com"
-	return m
-}
+func New(name, contact string) *Meta { return &Meta{Author: Author{Name: name, Contact: contact}} }
+func Empty() *Meta                   { return &Meta{} }
+func Default() *Meta                 { return New("陌竹", "mozhu233@outlook.com") }
 
 func Template() string {
-	m := &Meta{}
-
-	m.Author.Name = "陌竹"
-	m.Author.Contact = "mozhu233@outlook.com"
+	m := Default()
 	m.Task.Name = "challenge_game_2023_web_abc"
 	m.Task.Type = "Web"
 	m.Task.Description = "这是一个模板"
@@ -108,7 +99,6 @@ func Template() string {
 	m.Challenge.Name = "Web题目"
 	m.Challenge.Refer = "https://www.ctfhub.com"
 	m.Challenge.Tags = []string{"web", "2023"}
-
 	buf, err := yaml.Marshal(m)
 	if err != nil {
 		return err.Error()

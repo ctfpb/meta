@@ -1,4 +1,4 @@
-module git.l1n3.net/ctfhub/meta
+module github.com/ctfhub-team/meta
 
 go 1.21.1
 

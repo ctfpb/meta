@@ -1,0 +1,13 @@
+kind: pipeline
+name: Sync
+
+steps:
+  - name: Sync Github
+    image: appleboy/drone-git-push
+    settings:
+      branch: main
+      remote: "ssh://git@github.com/ctfhub-team/meta.git"
+      force: true
+      followtags: true
+      ssh_key:
+        from_secret: SYNC_GITHUB_KEY

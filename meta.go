@@ -24,7 +24,7 @@ type Author struct {
 
 type Task struct {
 	Name          string   `yaml:"name,omitempty"`
-	Type          uint     `yaml:"type,omitempty"`
+	Type          string   `yaml:"type,omitempty"`
 	Category      string   `yaml:"category,omitempty"`
 	Description   string   `yaml:"description,omitempty"`
 	Level         string   `yaml:"level,omitempty"`
@@ -54,6 +54,7 @@ type Meta struct {
 }
 
 func (m *Meta) Format() *Meta {
+	// Level
 	if m.Task.LevelCode != 0 && m.Task.Level == "" {
 		switch m.Task.LevelCode {
 		case LevelCheckin:
@@ -85,6 +86,30 @@ func (m *Meta) Format() *Meta {
 	return m
 }
 
+func (m *Meta) parseFormat() *Meta {
+	// Type 默认 web
+	if m.Task.Type != "" {
+		m.Task.Type = strings.ToLower(m.Task.Type)
+	} else {
+		m.Task.Type = "web"
+	}
+	// Level 默认 简单easy
+	switch strings.ToLower(m.Task.Level) {
+	case "签到", "checkin":
+		m.Task.LevelCode = LevelCheckin
+	case "简单", "easy":
+		m.Task.LevelCode = LevelEasy
+	case "中等", "中级", "medium":
+		m.Task.LevelCode = LevelMedium
+	case "困难", "高级", "hard":
+		m.Task.LevelCode = LevelHard
+	default:
+		m.Task.Level = "easy"
+		m.Task.LevelCode = LevelEasy
+	}
+	return m
+}
+
 func New(name, contact string) *Meta { return &Meta{Author: Author{Name: name, Contact: contact}} }
 func Empty() *Meta                   { return &Meta{} }
 func Default() *Meta                 { return New("陌竹", "mozhu233@outlook.com") }
@@ -92,7 +117,7 @@ func Default() *Meta                 { return New("陌竹", "mozhu233@outlook.co
 func Template() string {
 	m := Default()
 	m.Task.Name = "challenge_game_2023_web_abc"
-	m.Task.Type = 1
+	m.Task.Type = "web"
 	m.Task.Category = "Web"
 	m.Task.Description = "这是一个模板"
 	m.Task.Level = "easy"
@@ -135,7 +160,7 @@ func ParseMetas(data []byte) ([]*Meta, error) {
 			}
 			break
 		}
-		metas = append(metas, &meta)
+		metas = append(metas, meta.parseFormat())
 	}
 	if len(metas) == 0 {
 		return metas, errors.New("failed to parse meta data")

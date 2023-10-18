@@ -2,7 +2,8 @@
 
 题目信息 Meta
 
-由[题目环境生成器 - cg](https://github.com/ctfhub-team/challenge_generate)自动生成
+> [题目环境生成器 - https://github.com/ctfhub-team/challenge_generate](https://github.com/ctfhub-team/challenge_generate)
+> [环境制作说明 - https://www.wolai.com/ctfhub/3DvnJJtPbHyyDtVkDaW1yz](https://www.wolai.com/ctfhub/3DvnJJtPbHyyDtVkDaW1yz)
 
 ## 说明
 
@@ -15,8 +16,8 @@ author:
 task:
   # 题目镜像名称，由cg自动生成，题目自身名称中应当不包含_
   name: challenge_2022_hitcon_web_rce-me
-  # 访问类型 1 = 浏览器访问 | 2 = nc访问 | 3 = 附件
-  type: 1
+  # web = 浏览器访问 | nc = nc访问 | file = 附件
+  type: web
   # 题目分类，首字母需要大写，每个题目应当只有一个分类
   # 例如 Web, Pwn, Reverse, Misc, Crypto, Forensics, Blockchain, Android, Mobile, ICS, IoT
   category: Web
@@ -57,7 +58,7 @@ author:
   contact: mozhu233@outlook.com
 task:
   name: skill_web_advanced_jwt_infoleakage
-  type: 1
+  type: web
   category: Web
   description: JWT的头部和有效载荷这两部分的数据是以明文形式传输的
   level: easy
@@ -79,7 +80,7 @@ author:
   contact: mozhu233@outlook.com
 task:
   name: skill_web_advanced_jwt_infoleakage
-  type: 1
+  type: web
   category: Web
   description: JWT的头部和有效载荷这两部分的数据是以明文形式传输的
   level: easy
@@ -96,7 +97,7 @@ author:
   contact: mozhu233@outlook.com
 task:
   name: skill_web_ssrf_file_read
-  type: 1
+  type: web
   category: Web
   description: 尝试去读取一下Web目录下的flag.php吧
   level: easy

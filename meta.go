@@ -10,8 +10,10 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
+type TaskLevel int32
+
 const (
-	LevelCheckin int32 = iota + 1
+	LevelCheckin TaskLevel = iota + 1
 	LevelEasy
 	LevelMedium
 	LevelHard
@@ -22,16 +24,26 @@ type Author struct {
 	Contact string `yaml:"contact,omitempty"`
 }
 
+type TaskType int32
+
+const (
+	TypeWeb  TaskType = iota + 1 // 浏览器访问
+	TypeNc                       // NC 访问
+	TypeFile                     // 纯附件
+	TypeExt                      // 外部题目
+)
+
 type Task struct {
-	Name          string   `yaml:"name,omitempty"`
-	Type          string   `yaml:"type,omitempty"`
-	Category      string   `yaml:"category,omitempty"`
-	Description   string   `yaml:"description,omitempty"`
-	Level         string   `yaml:"level,omitempty"`
-	LevelCode     int32    `yaml:"level_code,omitempty"`
-	Flag          string   `yaml:"flag,omitempty"`
-	AttachmentURL string   `yaml:"attachment_url,omitempty"`
-	Hints         []string `yaml:"hints,omitempty"`
+	Name          string    `yaml:"name,omitempty"`      // 镜像名称
+	Type          string    `yaml:"type,omitempty"`      // 镜像类型
+	TypeCode      TaskType  `yaml:"type_code,omitempty"` // 题目分类
+	Category      string    `yaml:"category,omitempty"`  // 题目分类
+	Description   string    `yaml:"description,omitempty"`
+	Level         string    `yaml:"level,omitempty"`
+	LevelCode     TaskLevel `yaml:"level_code,omitempty"`
+	Flag          string    `yaml:"flag,omitempty"`
+	AttachmentURL string    `yaml:"attachment_url,omitempty"`
+	Hints         []string  `yaml:"hints,omitempty"`
 }
 
 type Challenge struct {
@@ -41,9 +53,10 @@ type Challenge struct {
 }
 
 type Skill struct {
-	ID  string `yaml:"id,omitempty"`
-	Pid string `yaml:"pid,omitempty"`
-	Tid string `yaml:"tid,omitempty"`
+	ID   string `yaml:"id,omitempty"`
+	Pid  string `yaml:"pid,omitempty"`
+	Tid  string `yaml:"tid,omitempty"`
+	Node int    `yaml:"node,omitempty"`
 }
 
 type Meta struct {
@@ -113,6 +126,26 @@ func (m *Meta) parseFormat() *Meta {
 func New(name, contact string) *Meta { return &Meta{Author: Author{Name: name, Contact: contact}} }
 func Empty() *Meta                   { return &Meta{} }
 func Default() *Meta                 { return New("陌竹", "mozhu233@outlook.com") }
+func NewSkill(id, pid, tid string, node int, image, name string, level TaskLevel) *Meta {
+	return New("陌竹", "mozhu233@outlook.com").NewSkill(id, pid, tid, node, image, name, level)
+}
+
+func (m *Meta) NewSkill(id, pid, tid string, node int, image, name string, level TaskLevel) *Meta {
+	n := m.R()
+	n.Skill.ID = id
+	n.Skill.Pid = pid
+	n.Skill.Tid = tid
+	n.Skill.Node = node
+	n.Challenge.Name = name
+	n.Task.Name = image
+	n.Task.LevelCode = level
+	return n
+}
+
+func (m *Meta) R() *Meta {
+	n := *m
+	return &n
+}
 
 func Template() string {
 	m := Default()

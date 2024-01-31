@@ -3,7 +3,8 @@ author:
   contact: mozhu233@outlook.com
 task:
   name: skill_web_ssrf_file_read
-  type: Web
+  type: web
+  Category: Web
   description: 尝试去读取一下Web目录下的flag.php吧
   level: easy
   flag: ""
@@ -12,3 +13,7 @@ challenge:
   refer: https://www.ctfhub.com
   tags:
     - 模板
+deploy:
+  cpu: 200
+  mem: 256
+  protocol: all

@@ -3,7 +3,8 @@ author:
   contact: mozhu233@outlook.com
 task:
   name: skill_web_advanced_jwt_infoleakage
-  type: Web
+  type: web
+  Category: Web
   description: JWT的头部和有效载荷这两部分的数据是以明文形式传输的
   level: easy
   flag: ""
@@ -12,3 +13,7 @@ challenge:
   refer: https://www.ctfhub.com
   tags:
     - 模板
+deploy:
+  cpu: 200
+  mem: 256
+  protocol: tcp

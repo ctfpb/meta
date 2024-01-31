@@ -30,7 +30,7 @@ func TestParseYamls(t *testing.T) {
 		data.WriteString("---\n")
 		data.Write(buf)
 	}
-	metas, err := ParseMetas(data.Bytes())
+	metas, err := ParseBytes(data.Bytes())
 	if err != nil {
 		t.Fatal(err)
 	}

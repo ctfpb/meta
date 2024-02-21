@@ -16,7 +16,7 @@ author:
 task:
   # 题目镜像名称，由cg自动生成，题目自身名称中应当不包含_
   name: challenge_2022_hitcon_web_rce-me
-  # web = 浏览器访问 | nc = nc访问 | file = 附件
+  # web = 浏览器访问 | nc = nc访问 | file = 附件 | ext = 外部题目
   type: web
   # 题目分类，首字母需要大写，每个题目应当只有一个分类
   # 例如 Web, Pwn, Reverse, Misc, Crypto, Forensics, Blockchain, Android, Mobile, ICS, IoT

@@ -14,6 +14,8 @@ challenge:
   tags:
     - 模板
 deploy:
-  cpu: 200
-  mem: 256
-  protocol: tcp
+  containers:
+    - resource:
+        cpu: 200
+        mem: 256
+      image: skill_web_advanced_jwt_infoleakage

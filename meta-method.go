@@ -46,13 +46,19 @@ func (t *Task) parseFormat() *Task {
 
 func (m *Meta) NewSkill(id, pid, tid string, leaf int64, image, name string, level TaskLevel) *Meta {
 	n := m.R()
-	n.Skill.Id = id
-	n.Skill.Pid = pid
-	n.Skill.Tid = tid
-	n.Skill.Leaf = leaf
-	n.Challenge.Name = name
-	n.Task.Name = image
-	n.Task.LevelCode = level
+	n.Skill = &Skill{
+		Id:   id,
+		Pid:  pid,
+		Tid:  tid,
+		Leaf: leaf,
+	}
+	n.Challenge = &Challenge{
+		Name: name,
+	}
+	n.Task = &Task{
+		Name:      image,
+		LevelCode: level,
+	}
 	return n
 }
 

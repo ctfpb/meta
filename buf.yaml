@@ -1,5 +1,7 @@
 version: v1
 name: buf.build/ctfhub-team/meta
+deps:
+  - buf.build/k8s/api
 breaking:
   use:
     - FILE

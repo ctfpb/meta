@@ -1,2 +1,7 @@
-pb:
-	protoc --go_out=. --go_opt=paths=source_relative meta.proto
+.PHONY: pb
+pb: pb-clear
+	buf generate
+
+.PHONY: pb-clear
+pb-clear: 
+	rm -f *.pb.go

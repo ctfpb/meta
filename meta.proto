@@ -3,14 +3,16 @@ syntax = "proto3";
 package meta;
 option go_package = "github.com/ctfhub-team/meta";
 
+import "k8s.io/apimachinery/pkg/api/resource/generated.proto";
+
 message Author {
   string name = 1;
   string contact = 2;
 }
 
 message Resource {
-  int64 cpu = 1;
-  int64 mem = 2;
+  k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
+  k8s.io.apimachinery.pkg.api.resource.Quantity mem = 2;
 }
 
 message Container {

@@ -41,7 +41,7 @@ func ParseBytes(data []byte) ([]*Meta, error) {
 			}
 			break
 		}
-		metas = append(metas, meta.parseFormat())
+		metas = append(metas, meta.ParseFormat())
 	}
 	if len(metas) == 0 {
 		return metas, errors.New("failed to parse meta data")

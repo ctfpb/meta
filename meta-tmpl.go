@@ -1,6 +1,9 @@
 package meta
 
-import "gopkg.in/yaml.v3"
+import (
+	"gopkg.in/yaml.v3"
+	resource "k8s.io/apimachinery/pkg/api/resource"
+)
 
 func Template() string {
 	m := Default()
@@ -18,14 +21,13 @@ func Template() string {
 		Refer: "https://www.ctfhub.com",
 		Tags:  []string{"web", "2024"},
 	}
-	m.Deploy = &Deploy{
-		Containers: []*Container{
-			{
-				Image:    "nginx",
-				Ports:    []string{"80/tcp"},
-				Env:      map[string]string{"FLAG": "ctftrain{this_is_a_test_flag}"},
-				Resource: &Resource{Cpu: 200, Mem: 256},
-			},
+	m.Containers = []*Container{
+		{
+			Image: "nginx",
+			Ports: []string{"80/tcp"},
+			Resource: &Resource{
+				Cpu: resource.NewQuantity(500, resource.DecimalSI),
+				Mem: resource.NewQuantity(512, resource.BinarySI)},
 		},
 	}
 	buf, err := yaml.Marshal(m)

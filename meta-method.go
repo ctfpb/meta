@@ -8,7 +8,7 @@ import (
 
 func (m *Meta) R() *Meta { return proto.Clone(m).(*Meta) }
 
-func (t *Task) parseFormat() *Task {
+func (t *Task) ParseFormat() *Task {
 	switch strings.ToLower(t.Type) {
 	case "con", "container", "web", "pwn":
 		t.Type = "con"
@@ -64,7 +64,7 @@ func (m *Meta) NewSkill(id, pid, tid string, leaf int64, image, name string, lev
 
 // Deploy
 
-func (t *Meta) parseFormat() *Meta {
-	t.Task.parseFormat()
+func (t *Meta) ParseFormat() *Meta {
+	t.Task.ParseFormat()
 	return t
 }

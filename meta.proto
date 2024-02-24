@@ -16,14 +16,9 @@ message Resource {
 }
 
 message Container {
-  map<string, string> env = 1;
-  string image = 2;
-  repeated string ports = 3;  // Image Expose 端口 eg: 80/tcp
-  Resource resource = 4;
-}
-
-message Deploy {
-  repeated Container containers = 1;
+  string image = 1;
+  repeated string ports = 2;  // Image Expose 端口 eg: 80/tcp
+  Resource resource = 3;
 }
 
 message Skill {
@@ -64,10 +59,11 @@ message Challenge {
   string refer = 2;
   repeated string tags = 3;
 }
+
 message Meta {
   Author author = 1;
   Task task = 2;
   Challenge challenge = 3;
   Skill skill = 4;
-  Deploy deploy = 5;
+  repeated Container containers = 5;
 }

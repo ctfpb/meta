@@ -1,0 +1,41 @@
+author:
+  name: l1n3
+  contact: yw9381@163.com
+task:
+  name: web_avfredsa_php_8.0_test
+  category: Web
+  description: web_ngiargveaswedgvnx_php_8.0_test
+  level: 签到
+  flag:
+container:
+  - image: web_nginx_php_8.0_test
+    port:
+      - 80/http
+    resource:
+      cpu: 250m
+      mem: 256Mi
+challenge:
+  name: web_nginx_php_8.0_test
+  tags:
+---
+author:
+  name: l1n3
+  contact: yw9381@163.com
+task:
+  name: web_nginaergveasx_php_8.0_test
+  category: Web
+  description: web_nnbtaseginx_aersgvhp_8.0_trbest
+  level: 签到
+  flag:
+container:
+  - image: web_nginx_php_8.0_test
+    port:
+      - 80/http
+    resource:
+      cpu: 250m
+      mem: 256Mi
+challenge:
+  name: web_nginx_php_8.0_test
+  tags:
+---
+

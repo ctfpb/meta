@@ -2,20 +2,20 @@ author:
   name: 陌竹
   contact: mozhu233@outlook.com
 task:
-  name: skill_web_advanced_jwt_infoleakage
-  type: web
+  id: skill_web_advanced_jwt_infoleakage
+  name: 敏感信息泄露
+  type: con
   Category: Web
   description: JWT的头部和有效载荷这两部分的数据是以明文形式传输的
   level: easy
   flag: ""
-challenge:
-  name: 敏感信息泄露
   refer: https://www.ctfhub.com
   tags:
     - 模板
-deploy:
-  containers:
-    - resource:
-        cpu: 200
-        mem: 256
-      image: skill_web_advanced_jwt_infoleakage
+containers:
+  - image: skill_web_advanced_jwt_infoleakage
+    ports:
+      - 80/http
+    resource:
+      cpu: 250m
+      mem: 256Mi

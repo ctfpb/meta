@@ -1,0 +1,24 @@
+author:
+  name: l1n3
+  name: web_avfredsa_php_8.0_test
+  category: Web
+  description: web_ngiargveaswedgvnx_php_8.0_test
+  level: 签到
+  flag:
+container:
+challenge:
+  name: web_nginx_php_8.0_test
+  tags:
+---
+author:
+  name: l1n3
+  contact: yw9381@163.com
+container:
+  resource:
+    cpu: 250m
+    mem: 256Mi
+challenge:
+  name: web_nginx_php_8.0_test
+  tags:
+---
+

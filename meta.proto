@@ -1,70 +1,64 @@
 syntax = "proto3";
 
-package meta;
+package ctfhub.meta;
+
 option go_package = "github.com/ctfhub-team/meta";
 
-import "k8s.io/apimachinery/pkg/api/resource/generated.proto";
-
+// 题目制作者信息
 message Author {
-  string name = 1;
-  string contact = 2;
+  string name = 1;     // Nickname 制作者ID
+  string contact = 2;  // Email 制作者邮箱
 }
 
 message Resource {
-  k8s.io.apimachinery.pkg.api.resource.Quantity cpu = 1;
-  k8s.io.apimachinery.pkg.api.resource.Quantity mem = 2;
+  /*
+  k8s.io.apimachinery.pkg.api.resource.Quantity
+  */
+  string cpu = 1;
+  string mem = 2;
 }
 
 message Container {
-  string image = 1;
-  repeated string ports = 2;  // Image Expose 端口 eg: 80/tcp
-  Resource resource = 3;
+  string image = 1;           // 命名空间/镜像名称
+  repeated string ports = 2;  // 需要对外暴露的端口,port/protocol eg .80/tcp
+  Resource resource = 3;  // 运行资源限制
 }
 
-message Skill {
-  string id = 1;
-  string pid = 2;
-  string tid = 3;
-  int64 leaf = 4;  // 树叶节点
-}
-
-enum TaskLevel {
-  Checkin = 0;  // 签到-入门
-  Easy = 1;     // 简单-初级
-  Medium = 2;   // 中等-中级
-  Hard = 3;     // 困难-高级
-}
-
-enum TaskType {
-  Unknown = 0;
-  Con = 1;   // 容器
-  File = 2;  // 附件
-  Ext = 3;   // 外部
-}
-
+// 题目信息
 message Task {
-  string name = 1;
-  string type = 2;
-  TaskType type_code = 3;
-  string category = 4;
-  string description = 5;
-  string level = 6;
-  TaskLevel level_code = 7;
-  string flag = 8;
-  string attachment_url = 9;
-  repeated string hints = 10;
+  string id = 1;             // 题目ID 唯一值
+  string name = 2;           // 题目名称
+  string type = 3;           // 题目类型
+  string category = 4;       // 题目分类
+  string description = 5;    // 题目描述
+  string level = 6;          // 题目难度
+  optional string flag = 7;  // 题目 Flag, 不填写则为动态 Flag
+  optional string attachment_url = 8;  // 题目附件地址
+  optional string refer = 9;           // 题目来源
+  repeated string tags = 10;           // 题目标签
+  repeated string hints = 11;          // 题目提示
+
+  enum Type {
+    UnknownType = 0;
+    Con = 1;   // 容器
+    File = 2;  // 附件
+    Ext = 3;   // 外部
+  }
+  Type type_code = 91;
+
+  enum Level {
+    UnknownLevel = 0;
+    Checkin = 1;  // 签到-入门
+    Easy = 2;     // 简单-初级
+    Medium = 3;   // 中等-中级
+    Hard = 4;     // 困难-高级
+  }
+  Level level_code = 92;
 }
 
-message Challenge {
-  string name = 1;
-  string refer = 2;
-  repeated string tags = 3;
-}
-
+// 题目元信息
 message Meta {
   Author author = 1;
   Task task = 2;
-  Challenge challenge = 3;
-  Skill skill = 4;
-  repeated Container containers = 5;
+  repeated Container containers = 3;
 }

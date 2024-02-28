@@ -10,19 +10,24 @@ func (m *Meta) R() *Meta { return proto.Clone(m).(*Meta) }
 
 func (t *Task) ParseFormat() *Task {
 	switch strings.ToLower(t.Type) {
-	case "con", "container", "web", "pwn":
-		t.Type = "con"
-		t.TypeCode = TaskType_Con
-	case "file":
+	case "web", "http":
+		t.Type = "http"
+		t.TypeCode = TaskType_HTTP
+	case "pwn", "nc", "tcp":
+		t.Type = "tcp"
+		t.TypeCode = TaskType_TCP
+	case "udp":
+		t.Type = "udp"
+		t.TypeCode = TaskType_UDP
+	case "file", "attachment":
 		t.Type = "file"
 		t.TypeCode = TaskType_File
 	case "ext":
 		t.Type = "ext"
 		t.TypeCode = TaskType_Ext
 	default:
-		// 默认 容器 con
-		t.Type = "con"
-		t.TypeCode = TaskType_Con
+		t.Type = "tcp"
+		t.TypeCode = TaskType_TCP
 	}
 	// Level
 	switch strings.ToLower(t.Level) {
@@ -35,9 +40,8 @@ func (t *Task) ParseFormat() *Task {
 	case "困难", "高级", "hard":
 		t.LevelCode = TaskLevel_Hard
 	default:
-		// 默认 简单easy
-		t.Level = "checkin"
-		t.LevelCode = TaskLevel_Checkin
+		t.Level = "easy"
+		t.LevelCode = TaskLevel_Easy
 	}
 	return t
 }
@@ -46,23 +50,11 @@ func (t *Task) ParseFormat() *Task {
 
 func (m *Meta) NewSkill(id, pid, tid string, leaf int64, image, name string, level TaskLevel) *Meta {
 	n := m.R()
-	n.Skill = &Skill{
-		Id:   id,
-		Pid:  pid,
-		Tid:  tid,
-		Leaf: leaf,
-	}
-	n.Challenge = &Challenge{
-		Name: name,
-	}
-	n.Task = &Task{
-		Name:      image,
-		LevelCode: level,
-	}
+	n.Skill = &Skill{Id: id, Pid: pid, Tid: tid, Leaf: leaf}
+	n.Challenge = &Challenge{Name: name}
+	n.Task = &Task{Name: image, LevelCode: level}
 	return n
 }
-
-// Deploy
 
 func (t *Meta) ParseFormat() *Meta {
 	t.Task.ParseFormat()

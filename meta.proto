@@ -36,9 +36,12 @@ enum TaskLevel {
 }
 
 enum TaskType {
-  Con = 0;   // 容器
-  File = 1;  // 附件
-  Ext = 2;   // 外部
+  Unknown = 0;
+  HTTP = 1;  // HTTP
+  TCP = 2;   // TCP
+  UDP = 3;   // UDP
+  File = 4;  // 附件
+  Ext = 5;   // 外部
 }
 
 message Task {

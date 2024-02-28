@@ -37,9 +37,29 @@ func ParseBytes(data []byte) ([]*Meta, error) {
 		err := dec.Decode(&meta)
 		if err != nil {
 			if !errors.Is(err, io.EOF) {
-				return nil, err
+				break
 			}
-			break
+			continue
+		}
+		metas = append(metas, meta.ParseFormat())
+	}
+	if len(metas) == 0 {
+		return metas, errors.New("failed to parse meta data")
+	}
+	return metas, nil
+}
+
+func MustParseBytes(data []byte) ([]*Meta, error) {
+	var metas []*Meta
+	dec := yaml.NewDecoder(bytes.NewReader(data))
+	for {
+		meta := Meta{}
+		err := dec.Decode(&meta)
+		if err != nil {
+			if !errors.Is(err, io.EOF) {
+				break
+			}
+			return nil, err
 		}
 		metas = append(metas, meta.ParseFormat())
 	}

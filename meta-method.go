@@ -10,15 +10,9 @@ func (m *Meta) R() *Meta { return proto.Clone(m).(*Meta) }
 
 func (t *Task) ParseFormat() *Task {
 	switch strings.ToLower(t.Type) {
-	case "web", "http":
-		t.Type = "http"
-		t.TypeCode = TaskType_HTTP
-	case "pwn", "nc", "tcp":
-		t.Type = "tcp"
-		t.TypeCode = TaskType_TCP
-	case "udp":
-		t.Type = "udp"
-		t.TypeCode = TaskType_UDP
+	case "con","web", "http", "pwn", "nc", "tcp", "udp":
+		t.Type = "con"
+		t.TypeCode = TaskType_Con
 	case "file", "attachment":
 		t.Type = "file"
 		t.TypeCode = TaskType_File
@@ -26,18 +20,18 @@ func (t *Task) ParseFormat() *Task {
 		t.Type = "ext"
 		t.TypeCode = TaskType_Ext
 	default:
-		t.Type = "tcp"
-		t.TypeCode = TaskType_TCP
+		t.Type = "file"
+		t.TypeCode = TaskType_File
 	}
 	// Level
 	switch strings.ToLower(t.Level) {
-	case "签到", "checkin":
+	case "签到", "checkin", "1":
 		t.LevelCode = TaskLevel_Checkin
-	case "简单", "初级", "easy":
+	case "简单", "初级", "easy", "2":
 		t.LevelCode = TaskLevel_Easy
-	case "中等", "中级", "medium":
+	case "中等", "中级", "medium", "3":
 		t.LevelCode = TaskLevel_Medium
-	case "困难", "高级", "hard":
+	case "困难", "高级", "hard", "4":
 		t.LevelCode = TaskLevel_Hard
 	default:
 		t.Level = "easy"

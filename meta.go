@@ -36,7 +36,7 @@ func ParseBytes(data []byte) ([]*Meta, error) {
 		meta := Meta{}
 		err := dec.Decode(&meta)
 		if err != nil {
-			if !errors.Is(err, io.EOF) {
+			if errors.Is(err, io.EOF) {
 				break
 			}
 			continue

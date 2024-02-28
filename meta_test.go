@@ -6,6 +6,8 @@ import (
 	"os"
 	"path"
 	"testing"
+
+	"gopkg.in/yaml.v3"
 )
 
 func TestTemplate(t *testing.T) {
@@ -22,7 +24,7 @@ func TestR(t *testing.T) {
 
 func TestParseYamls(t *testing.T) {
 	var data bytes.Buffer
-	for _, name := range []string{"web1.yaml", "web2.yaml"} {
+	for _, name := range []string{"web1.yaml", "web2.yaml", "web3.yaml"} {
 		buf, err := os.ReadFile(path.Join(".", "test", name))
 		if err != nil {
 			t.Fatal(err)
@@ -36,6 +38,7 @@ func TestParseYamls(t *testing.T) {
 	}
 	for _, meta := range metas {
 		fmt.Println("==========")
-		fmt.Println(meta)
+		buf, _ := yaml.Marshal(meta)
+		fmt.Println(string(buf))
 	}
 }

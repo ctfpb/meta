@@ -3,13 +3,16 @@ package meta
 import (
 	"errors"
 	"regexp"
+	"slices"
 	"strings"
 
 	"google.golang.org/protobuf/proto"
+	"k8s.io/apimachinery/pkg/api/resource"
 )
 
 const (
-	TaskIDSpec = `[^a-z0-9][a-z0-9_]{12,94}[a-z0-9]$`
+	TaskIDSpec = `[^a-z0-9][a-z0-9_\-]{12,94}[a-z0-9]$`
+	ImageSpec  = TaskIDSpec
 )
 
 func (m *Meta) R() *Meta { return proto.Clone(m).(*Meta) }
@@ -56,12 +59,57 @@ func (t *Task) Check() error {
 	return nil
 }
 
+func (c *Container) Check() error {
+	if c.Image == "" {
+		return errors.New("image is required")
+	}
+	// Image name
+	if !regexp.MustCompile(ImageSpec).MatchString(c.Image) {
+		return errors.New("image is invalid. " + ImageSpec)
+	}
+	// Resource
+	_, err := resource.ParseQuantity(c.Resource.Cpu)
+	if err != nil {
+		return errors.New("resource cpu is invalid")
+	}
+	_, err = resource.ParseQuantity(c.Resource.Mem)
+	if err != nil {
+		return errors.New("resource mem is invalid")
+	}
+	return nil
+}
+
 func (t *Meta) Check() error {
 	if t.Task == nil {
 		return errors.New("task is required")
 	}
 	if err := t.Task.Check(); err != nil {
 		return err
+	}
+	if len(t.Containers) > 0 {
+		proxyMap := map[string]struct{}{}
+		for _, c := range t.Containers {
+			if c == nil {
+				return errors.New("container is required")
+			}
+			if err := c.Check(); err != nil {
+				return err
+			}
+			// Ports
+			for _, port := range c.Ports {
+				p1, p2, ok := strings.Cut(port, "/")
+				if !ok {
+					return errors.New("port is invalid. port/protocol")
+				}
+				if !slices.Contains([]string{"tcp", "udp", "http"}, p2) {
+					return errors.New("port protocol is invalid. tcp/udp/http")
+				}
+				if _, ok := proxyMap[p1]; ok {
+					return errors.New("port is duplicate")
+				}
+				proxyMap[p1] = struct{}{}
+			}
+		}
 	}
 	return nil
 }

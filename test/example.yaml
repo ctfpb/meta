@@ -1,16 +1,3 @@
-# Meta 题目信息
-
-[![Build Status](https://github.com/ctfhub-team/meta/actions/workflows/test.yml/badge.svg)](https://github.com/ctfhub-team/meta/actions/workflows/test.yml)
-[![Go Report Card](https://goreportcard.com/badge/github.com/ctfhub-team/meta)](https://goreportcard.com/report/github.com/ctfhub-team/meta)
-[![GoDoc](https://pkg.go.dev/badge/github.com/ctfhub-team/meta?status.svg)](https://pkg.go.dev/github.com/ctfhub-team/meta?tab=doc)
-
-> [题目环境生成器 - https://github.com/ctfhub-team/challenge_generate](https://github.com/ctfhub-team/challenge_generate)
-
-> [环境制作说明 - https://www.wolai.com/ctfhub/3DvnJJtPbHyyDtVkDaW1yz](https://www.wolai.com/ctfhub/3DvnJJtPbHyyDtVkDaW1yz)
-
-## 说明
-
-```yaml
 author:
   # 制作者ID
   name: l1n3
@@ -73,13 +60,3 @@ container:
     resource:
       cpu: 250m
       mem: 256Mi
-```
-
-## Multiple Yaml 多文件合并
-
-```yaml
----
-yaml content 1
----
-yaml content 2
-```

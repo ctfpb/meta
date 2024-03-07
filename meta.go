@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"errors"
 	"io"
-	"log"
 
 	"gopkg.in/yaml.v3"
 )
@@ -33,14 +32,12 @@ func ParseBytes(data []byte) ([]*Meta, error) {
 		meta := Meta{}
 		err := dec.Decode(&meta)
 		if err != nil {
-			log.Printf("%+v\n", err)
 			if errors.Is(err, io.EOF) {
 				break
 			}
 			continue
 		}
 		if err = meta.Check(); err != nil {
-			log.Printf("%+v\n", err)
 			continue
 		}
 		metas = append(metas, meta.ParseFormat())

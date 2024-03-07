@@ -28,7 +28,7 @@ message Container {
 message Task {
   string id = 1;             // 题目ID 唯一值
   string name = 2;           // 题目名称
-  string type = 3;           // 题目类型
+  string type = 3;           // 题目类型 - con,file,ext
   string category = 4;       // 题目分类
   string description = 5;    // 题目描述
   string level = 6;          // 题目难度

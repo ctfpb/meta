@@ -2,7 +2,6 @@ package meta
 
 import (
 	"bytes"
-	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -11,18 +10,6 @@ import (
 
 	"gopkg.in/yaml.v3"
 )
-
-func TestTemplate(t *testing.T) {
-	fmt.Println(Template())
-}
-
-func TestR(t *testing.T) {
-	m := Default()
-	n := m.R()
-	m.Author.Name = "aaaaa"
-	fmt.Printf("%p %+v\n", &m, m)
-	fmt.Printf("%p %+v\n", &n, n)
-}
 
 func TestParseYamlBytes(t *testing.T) {
 	var data bytes.Buffer
@@ -48,9 +35,10 @@ func TestParseYamlBytes(t *testing.T) {
 		t.Fatal(err)
 	}
 	for _, meta := range metas {
-		fmt.Println("==========")
-		buf, _ := yaml.Marshal(meta)
-		fmt.Println(string(buf))
+		_, err = yaml.Marshal(meta)
+		if err != nil {
+			t.Fatal(err)
+		}
 	}
 }
 
@@ -62,34 +50,60 @@ func TestParseEveryYaml(t *testing.T) {
 		if !info.IsDir() && filepath.Ext(info.Name()) == ".yaml" {
 			buf, err := os.ReadFile(path)
 			if err != nil {
-				t.Log(err)
-				return nil
+				return err
 			}
 			metas, err := ParseBytes(buf)
 			if err != nil {
-				t.Log(err)
-				return nil
+				if !strings.Contains(path, "err") {
+					t.Log(path)
+					t.Fatal(err)
+				}
 			}
 			for _, meta := range metas {
 				err = meta.Check()
 				if err != nil {
-					t.Log(err)
+					if !strings.Contains(path, "err") {
+						t.Log(path)
+						t.Fatal(err)
+					}
 					continue
 				}
 				meta.ParseFormat()
 				_, err := yaml.Marshal(meta)
 				if err != nil {
-					t.Log(err)
+					if !strings.Contains(path, "err") {
+						t.Log(path)
+						t.Fatal(err)
+					}
 					continue
 				}
-				if strings.Contains(path, "ok") {
-					t.Log("data in filename =", path, " is ok!")
-				}
+				t.Log("data in filename =", path, " is ok!")
 			}
 		}
 		return nil
 	})
 	if err != nil {
 		t.Fatal(err)
+	}
+}
+
+func TestParseExample(t *testing.T) {
+	buf, err := os.ReadFile("test/example.yaml")
+	if err != nil {
+		t.Fatal(err)
+	}
+	metas, err := ParseBytes(buf)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if len(metas) == 0 {
+		t.Fail()
+	}
+	meta := metas[0]
+	if meta.Task == nil {
+		t.Fail()
+	}
+	if meta.Task.Id != "2022_hitcon_web_rce-me" {
+		t.Fail()
 	}
 }

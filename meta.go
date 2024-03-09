@@ -60,6 +60,9 @@ func MustParseBytes(data []byte) ([]*Meta, error) {
 			}
 			return nil, err
 		}
+		if err = meta.Check(); err != nil {
+			return nil,err
+		}
 		metas = append(metas, meta.ParseFormat())
 	}
 	if len(metas) == 0 {

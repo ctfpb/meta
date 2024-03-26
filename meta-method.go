@@ -18,6 +18,9 @@ const (
 func (m *Meta) R() *Meta { return proto.Clone(m).(*Meta) }
 
 func (t *Task) ParseFormat() *Task {
+	if t.Type == "" && t.TypeCode > 0 {
+		t.Type = strings.ToLower(Task_Type_name[int32(t.TypeCode)])
+	}
 	switch strings.ToLower(t.Type) {
 	case "con", "web", "http", "pwn", "nc", "tcp", "udp":
 		t.Type = "con"
@@ -33,6 +36,9 @@ func (t *Task) ParseFormat() *Task {
 		t.TypeCode = Task_File
 	}
 	// Level
+	if t.Level == "" && t.LevelCode > 0 {
+		t.Level = strings.ToLower(Task_Level_name[int32(t.LevelCode)])
+	}
 	switch strings.ToLower(t.Level) {
 	case "签到", "checkin", "1":
 		t.LevelCode = Task_Checkin

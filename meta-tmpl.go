@@ -22,10 +22,6 @@ func Template() string {
 			"web",
 			"2024",
 		},
-		Hints: []string{
-			"这是一个模板",
-			"没有提示",
-		},
 	}
 	m.Containers = []*Container{
 		{

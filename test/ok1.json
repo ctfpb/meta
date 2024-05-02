@@ -1,0 +1,32 @@
+{
+  "author": {
+    "name": "陌竹",
+    "contact": "mozhu233@outlook.com"
+  },
+  "task": {
+    "id": "skill_web_advanced_jwt_infoleakage",
+    "name": "敏感信息泄露",
+    "type": "con",
+    "Category": "Web",
+    "description": "JWT的头部和有效载荷这两部分的数据是以明文形式传输的",
+    "level": "easy",
+    "flag": "",
+    "refer": "https://www.ctfhub.com",
+    "tags": [
+      "模板"
+    ],
+    "ban_egress": true
+  },
+  "containers": [
+    {
+      "image": "skill_web_advanced_jwt_infoleakage",
+      "ports": [
+        "80/http"
+      ],
+      "resource": {
+        "cpu": "250m",
+        "mem": "256Mi"
+      }
+    }
+  ]
+}

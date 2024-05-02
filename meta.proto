@@ -36,6 +36,9 @@ message Task {
   optional string attachment_url = 8; // 题目附件地址
   optional string refer = 9;          // 题目来源
   repeated string tags = 10;          // 题目标签
+  // 是否禁止出网 - 基于 nerwork policy
+  // - 仅支持私有k8s,公有云需要支持网络相关组件,如阿里云需要 pro 版
+  bool ban_egress = 11;
 
   enum Type {
     UnknownType = 0;

@@ -1,0 +1,35 @@
+{
+  "author": {
+    "name": "陌竹",
+    "contact": "mozhu233@outlook.com"
+  },
+  "task": {
+    "id": "skill_web_advanced_jwt_infoleakage",
+    "name": "伪协议读取文件",
+    "type": "con",
+    "Category": "Web",
+    "description": "JWT的头部和有效载荷这两部分的数据是以明文形式传输的\n",
+    "level": "easy",
+    "flag": "",
+    "refer": "https://www.ctfhub.com",
+    "tags": [
+      "web",
+      "jwt"
+    ],
+    "hints": [
+      "leak"
+    ]
+  },
+  "containers": [
+    {
+      "image": "skill_web_advanced_jwt_infoleakage",
+      "ports": [
+        "80/http"
+      ],
+      "resource": {
+        "cpu": "200m",
+        "mem": "256Mi"
+      }
+    }
+  ]
+}

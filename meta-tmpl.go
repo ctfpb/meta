@@ -1,32 +1,36 @@
 package meta
 
-import "encoding/json"
+import (
+	"encoding/json"
 
-func StrPtr(s string) *string { return &s }
+	pb "buf.build/gen/go/ctfhub/meta/protocolbuffers/go"
+)
+
+func varPtr[T any](v T) *T { return &v }
 
 func Template() string {
 	m := Default()
-	m.Task = &Task{
+	m.Task = &pb.Task{
 		Id:            "challenge_game_2024_web_abc",
 		Name:          "Web题目",
 		Type:          "web",
 		Category:      "Web",
 		Description:   "这是一个模板",
 		Level:         "easy",
-		AttachmentUrl: StrPtr("http://xxxxxxx.xxxx.xx/xxx.zip"),
-		Refer:         StrPtr(""),
-		Flag:          StrPtr("ctftrain{this_is_a_test_flag}"),
+		AttachmentUrl: varPtr("http://xxxxxxx.xxxx.xx/xxx.zip"),
+		Refer:         varPtr(""),
+		Flag:          varPtr("ctftrain{this_is_a_test_flag}"),
 		Tags: []string{
 			"web",
 			"2024",
 		},
-		BanEgress: true,
+		Egress: varPtr(true),
 	}
-	m.Containers = []*Container{
+	m.Containers = []*pb.Container{
 		{
 			Image: "nginx",
 			Ports: []string{"80/tcp"},
-			Resource: &Resource{
+			Resource: &pb.Resource{
 				Cpu: "500m",
 				Mem: "512Mi",
 			},

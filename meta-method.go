@@ -6,7 +6,7 @@ import (
 	"slices"
 	"strings"
 
-	"google.golang.org/protobuf/proto"
+	pb "buf.build/gen/go/ctfhub/meta/protocolbuffers/go"
 	"k8s.io/apimachinery/pkg/api/resource"
 )
 
@@ -15,47 +15,45 @@ const (
 	ImageSpec  = TaskIDSpec
 )
 
-func (m *Meta) R() *Meta { return proto.Clone(m).(*Meta) }
-
-func (t *Task) ParseFormat() *Task {
+func ParseFormatTask(t *pb.Task) *pb.Task {
 	if t.Type == "" && t.TypeCode > 0 {
-		t.Type = strings.ToLower(Task_Type_name[int32(t.TypeCode)])
+		t.Type = strings.ToLower(pb.Task_Type_name[int32(t.TypeCode)])
 	}
 	switch strings.ToLower(t.Type) {
 	case "con", "web", "http", "pwn", "nc", "tcp", "udp":
 		t.Type = "con"
-		t.TypeCode = Task_Con
+		t.TypeCode = pb.Task_Con
 	case "file", "attachment":
 		t.Type = "file"
-		t.TypeCode = Task_File
+		t.TypeCode = pb.Task_File
 	case "ext":
 		t.Type = "ext"
-		t.TypeCode = Task_Ext
+		t.TypeCode = pb.Task_Ext
 	default:
 		t.Type = "file"
-		t.TypeCode = Task_File
+		t.TypeCode = pb.Task_File
 	}
 	// Level
 	if t.Level == "" && t.LevelCode > 0 {
-		t.Level = strings.ToLower(Task_Level_name[int32(t.LevelCode)])
+		t.Level = strings.ToLower(pb.Task_Level_name[int32(t.LevelCode)])
 	}
 	switch strings.ToLower(t.Level) {
 	case "签到", "checkin", "1":
-		t.LevelCode = Task_Checkin
+		t.LevelCode = pb.Task_Checkin
 	case "简单", "初级", "easy", "2":
-		t.LevelCode = Task_Easy
+		t.LevelCode = pb.Task_Easy
 	case "中等", "中级", "medium", "3":
-		t.LevelCode = Task_Medium
+		t.LevelCode = pb.Task_Medium
 	case "困难", "高级", "hard", "4":
-		t.LevelCode = Task_Hard
+		t.LevelCode = pb.Task_Hard
 	default:
 		t.Level = "easy"
-		t.LevelCode = Task_Easy
+		t.LevelCode = pb.Task_Easy
 	}
 	return t
 }
 
-func (t *Task) Check() error {
+func VerifyTask(t *pb.Task) error {
 	if t.Id == "" {
 		return errors.New("task id is required")
 	}
@@ -65,7 +63,7 @@ func (t *Task) Check() error {
 	return nil
 }
 
-func (c *Container) Check() error {
+func VerifyContainer(c *pb.Container) error {
 	if c.Image == "" {
 		return errors.New("image is required")
 	}
@@ -85,11 +83,11 @@ func (c *Container) Check() error {
 	return nil
 }
 
-func (t *Meta) Check() error {
+func Verify(t *pb.Meta) error {
 	if t.Task == nil {
 		return errors.New("task is required")
 	}
-	if err := t.Task.Check(); err != nil {
+	if err := VerifyTask(t.Task); err != nil {
 		return err
 	}
 	if len(t.Containers) > 0 {
@@ -98,7 +96,7 @@ func (t *Meta) Check() error {
 			if c == nil {
 				return errors.New("container is required")
 			}
-			if err := c.Check(); err != nil {
+			if err := VerifyContainer(c); err != nil {
 				return err
 			}
 			// Ports
@@ -120,9 +118,9 @@ func (t *Meta) Check() error {
 	return nil
 }
 
-func (t *Meta) ParseFormat() *Meta {
-	if t.Task != nil {
-		t.Task.ParseFormat()
+func ParseFormatMeta(m *pb.Meta) *pb.Meta {
+	if m.Task != nil {
+		ParseFormatTask(m.Task)
 	}
-	return t
+	return m
 }

@@ -1,0 +1,22 @@
+{
+  "$id": "ctfhub.meta.v1.Meta.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "题目元信息",
+  "properties": {
+    "author": {
+      "$ref": "ctfhub.meta.v1.Author.schema.json"
+    },
+    "containers": {
+      "items": {
+        "$ref": "ctfhub.meta.v1.Container.schema.json"
+      },
+      "type": "array"
+    },
+    "task": {
+      "$ref": "ctfhub.meta.v1.Task.schema.json"
+    }
+  },
+  "title": "Meta",
+  "type": "object"
+}

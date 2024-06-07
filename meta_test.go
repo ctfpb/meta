@@ -57,14 +57,14 @@ func TestParseEveryFile(t *testing.T) {
 			if err != nil {
 				t.Fatal(err)
 			}
-			err = meta.Check()
+			err = Verify(meta)
 			if err != nil {
 				if !strings.Contains(path, "err") {
 					t.Log(path)
 					t.Fatal(err)
 				}
 			}
-			meta.ParseFormat()
+			ParseFormatMeta(meta)
 			data, err := json.Marshal(meta)
 			if err != nil {
 				if !strings.Contains(path, "err") {

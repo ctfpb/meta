@@ -1,0 +1,85 @@
+{
+  "$id": "ctfhub.meta.v1.Task.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "description": "题目信息",
+  "properties": {
+    "attachment_url": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "egress": {
+      "type": "boolean"
+    },
+    "flag": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "level": {
+      "type": "string"
+    },
+    "level_code": {
+      "anyOf": [
+        {
+          "enum": [
+            "UnknownLevel",
+            "Checkin",
+            "Easy",
+            "Medium",
+            "Hard"
+          ],
+          "title": "Level",
+          "type": "string"
+        },
+        {
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "type": "integer"
+        }
+      ]
+    },
+    "name": {
+      "type": "string"
+    },
+    "refer": {
+      "type": "string"
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "type": {
+      "type": "string"
+    },
+    "type_code": {
+      "anyOf": [
+        {
+          "enum": [
+            "UnknownType",
+            "Con",
+            "File",
+            "Ext"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        {
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "type": "integer"
+        }
+      ]
+    }
+  },
+  "title": "Task",
+  "type": "object"
+}

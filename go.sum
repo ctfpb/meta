@@ -1,5 +1,5 @@
-buf.build/gen/go/ctfhub/meta/protocolbuffers/go v1.34.1-20240607043615-3e2485365166.1 h1:m9TSNKMgPAh0l5yr1FirT/TQ2TUD/2RPwRcdC1iMM6I=
-buf.build/gen/go/ctfhub/meta/protocolbuffers/go v1.34.1-20240607043615-3e2485365166.1/go.mod h1:oek3yACD5FaIqhwfrvm9LbTY3jNEHZu+9iVpa5JqcNM=
+buf.build/gen/go/ctfhub/meta/protocolbuffers/go v1.34.1-20240607101127-bbc58fb6628a.1 h1:mJ6l9Sdv5gX12KVgs4jpx1GSrNA0LDQuqvxCYHlDrQY=
+buf.build/gen/go/ctfhub/meta/protocolbuffers/go v1.34.1-20240607101127-bbc58fb6628a.1/go.mod h1:oek3yACD5FaIqhwfrvm9LbTY3jNEHZu+9iVpa5JqcNM=
 github.com/gogo/protobuf v1.3.2 h1:Ov1cvc58UF3b5XjBnZv7+opcTcQFZebYjWzi34vdm4Q=
 github.com/gogo/protobuf v1.3.2/go.mod h1:P1XiOD3dCwIKUDQYPy72D8LYyHL2YPYrpS2s69NZV8Q=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=

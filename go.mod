@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.21.6
 
 require (
-	buf.build/gen/go/ctfhub/meta/protocolbuffers/go v1.34.1-20240607043615-3e2485365166.1
+	buf.build/gen/go/ctfhub/meta/protocolbuffers/go v1.34.1-20240607101127-bbc58fb6628a.1
 	k8s.io/apimachinery v0.29.2
 )
 

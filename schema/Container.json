@@ -1,0 +1,43 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Container",
+    "definitions": {
+        "Container": {
+            "properties": {
+                "image": {
+                    "type": "string",
+                    "description": "命名空间/镜像名称"
+                },
+                "ports": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "需要对外暴露的端口,port/protocol eg .80/tcp"
+                },
+                "resource": {
+                    "$ref": "#/definitions/ctfhub.meta.v1.Resource",
+                    "additionalProperties": true,
+                    "description": "运行资源限制"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Container"
+        },
+        "ctfhub.meta.v1.Resource": {
+            "properties": {
+                "cpu": {
+                    "type": "string"
+                },
+                "mem": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Resource",
+            "description": "k8s.io.apimachinery.pkg.api.resource.Quantity"
+        }
+    }
+}

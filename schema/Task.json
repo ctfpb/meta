@@ -1,0 +1,105 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Task",
+    "definitions": {
+        "Task": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "题目ID 唯一值"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "题目名称"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "题目类型 - con,file,ext"
+                },
+                "category": {
+                    "type": "string",
+                    "description": "题目分类"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "题目描述"
+                },
+                "level": {
+                    "type": "string",
+                    "description": "题目难度"
+                },
+                "flag": {
+                    "type": "string",
+                    "description": "题目 Flag, 不填写则为动态 Flag"
+                },
+                "attachment_url": {
+                    "type": "string",
+                    "description": "题目附件地址"
+                },
+                "refer": {
+                    "type": "string",
+                    "description": "题目来源"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "题目标签"
+                },
+                "egress": {
+                    "type": "boolean",
+                    "description": "是否允许出网"
+                },
+                "type_code": {
+                    "enum": [
+                        "UnknownType",
+                        0,
+                        "Con",
+                        1,
+                        "File",
+                        2,
+                        "Ext",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Type"
+                },
+                "level_code": {
+                    "enum": [
+                        "UnknownLevel",
+                        0,
+                        "Checkin",
+                        1,
+                        "Easy",
+                        2,
+                        "Medium",
+                        3,
+                        "Hard",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Task",
+            "description": "题目信息"
+        }
+    }
+}

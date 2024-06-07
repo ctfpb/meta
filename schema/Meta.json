@@ -1,0 +1,180 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Meta",
+    "definitions": {
+        "Meta": {
+            "properties": {
+                "author": {
+                    "$ref": "#/definitions/ctfhub.meta.v1.Author",
+                    "additionalProperties": true
+                },
+                "task": {
+                    "$ref": "#/definitions/ctfhub.meta.v1.Task",
+                    "additionalProperties": true
+                },
+                "containers": {
+                    "items": {
+                        "$ref": "#/definitions/ctfhub.meta.v1.Container"
+                    },
+                    "type": "array"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Meta",
+            "description": "题目元信息"
+        },
+        "ctfhub.meta.v1.Author": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Nickname 制作者ID"
+                },
+                "contact": {
+                    "type": "string",
+                    "description": "Email 制作者邮箱"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Author",
+            "description": "题目制作者信息"
+        },
+        "ctfhub.meta.v1.Container": {
+            "properties": {
+                "image": {
+                    "type": "string",
+                    "description": "命名空间/镜像名称"
+                },
+                "ports": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "需要对外暴露的端口,port/protocol eg .80/tcp"
+                },
+                "resource": {
+                    "$ref": "#/definitions/ctfhub.meta.v1.Resource",
+                    "additionalProperties": true,
+                    "description": "运行资源限制"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Container"
+        },
+        "ctfhub.meta.v1.Resource": {
+            "properties": {
+                "cpu": {
+                    "type": "string"
+                },
+                "mem": {
+                    "type": "string"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Resource",
+            "description": "k8s.io.apimachinery.pkg.api.resource.Quantity"
+        },
+        "ctfhub.meta.v1.Task": {
+            "properties": {
+                "id": {
+                    "type": "string",
+                    "description": "题目ID 唯一值"
+                },
+                "name": {
+                    "type": "string",
+                    "description": "题目名称"
+                },
+                "type": {
+                    "type": "string",
+                    "description": "题目类型 - con,file,ext"
+                },
+                "category": {
+                    "type": "string",
+                    "description": "题目分类"
+                },
+                "description": {
+                    "type": "string",
+                    "description": "题目描述"
+                },
+                "level": {
+                    "type": "string",
+                    "description": "题目难度"
+                },
+                "flag": {
+                    "type": "string",
+                    "description": "题目 Flag, 不填写则为动态 Flag"
+                },
+                "attachment_url": {
+                    "type": "string",
+                    "description": "题目附件地址"
+                },
+                "refer": {
+                    "type": "string",
+                    "description": "题目来源"
+                },
+                "tags": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array",
+                    "description": "题目标签"
+                },
+                "egress": {
+                    "type": "boolean",
+                    "description": "是否允许出网"
+                },
+                "type_code": {
+                    "enum": [
+                        "UnknownType",
+                        0,
+                        "Con",
+                        1,
+                        "File",
+                        2,
+                        "Ext",
+                        3
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Type"
+                },
+                "level_code": {
+                    "enum": [
+                        "UnknownLevel",
+                        0,
+                        "Checkin",
+                        1,
+                        "Easy",
+                        2,
+                        "Medium",
+                        3,
+                        "Hard",
+                        4
+                    ],
+                    "oneOf": [
+                        {
+                            "type": "string"
+                        },
+                        {
+                            "type": "integer"
+                        }
+                    ],
+                    "title": "Level"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Task",
+            "description": "题目信息"
+        }
+    }
+}

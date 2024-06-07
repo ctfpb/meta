@@ -1,0 +1,22 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "$ref": "#/definitions/Author",
+    "definitions": {
+        "Author": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Nickname 制作者ID"
+                },
+                "contact": {
+                    "type": "string",
+                    "description": "Email 制作者邮箱"
+                }
+            },
+            "additionalProperties": true,
+            "type": "object",
+            "title": "Author",
+            "description": "题目制作者信息"
+        }
+    }
+}
